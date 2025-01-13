@@ -25,7 +25,12 @@
             text-align: center;
             border-radius:10px;
             background-color: black;
+            transition: height 0.3s ease;
         }
+   
+        
+            
+        
         input[type="text"] {
             width: 90%;
             height: 200px;
@@ -51,6 +56,9 @@
             background-color: #09d924;
             color: black;
             font-size: 20px;
+            margin: 2px;
+            width: 76px;
+            height: 53px;
              
         }
         
@@ -62,6 +70,18 @@
             background-color:#f50a0a;
             border:1px solid #f50a0a ;
             font-size: 20px;
+            width: 76px;
+            height: 53px;
+            margin: 2px;
+        }
+        .error-message {
+            margin-top: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: grey;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: none;
         }
     
     </style>
@@ -89,22 +109,45 @@
         <input type="button" value="0" onclick="appendToDisplay('0')">
         <input type="button" value="=" onclick="calculate()" id="add" >
         <input type="button" value="/" onclick="appendToDisplay('/')" id="add" >
+        <br>
+        <div class="error-message" id="error-message">Invalid Expression</div>
+    </div>
     </div>
     
+    
     <script>
+        function displayErrorMessage() {
+            const errorBox = document.getElementById("error-message");
+            
+            errorBox.style.display = "block"; 
+            
+            
+        }
+
+        function clearErrorMessage() {
+            const errorBox = document.getElementById("error-message");
+            
+            errorBox.style.display = "none"; // Hide the error message
+            
+            
+        }
         function appendToDisplay(value) {
             document.getElementById("display").value += value;
+            clearErrorMessage();
         }
         
         function clearDisplay() {
             document.getElementById("display").value = "";
+            clearErrorMessage();
         }
         
         function calculate() {
             try {
                 document.getElementById("display").value = eval(document.getElementById("display").value);
+                
+                clearErrorMessage();
             } catch (error) {
-                document.getElementById("display").value = alert("invalid expression"); ;
+                document.getElementById("display").value = displayErrorMessage();
             }
         }
     </script>
